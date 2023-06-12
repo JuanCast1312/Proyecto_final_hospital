@@ -3,13 +3,29 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const moment = require('moment');
+const { create } = require("express-handlebars");//importacion de handelbars
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var mascotasRouter = require('./routes/mascotas');
+var medicosRouter = require('./routes/medicos');
+var citasRouter = require('./routes/citas');
 
 var app = express();
 
+const hbs = create({//recibe las configuraciones de express
+  extname: ".hbs",//facilita el uso de la extension, dandole notacion .hbs
+  partialsDir: ["views/componentes"],//componetes
+  // Formateando la fecha de la base de datos
+  helpers: {
+    formatearFecha: function(date) {
+      return moment(date).format('YYYY-MM-DD'); // Formato de fecha deseado
+    }
+  }
+});
+
 // view engine setup
+app.engine(".hbs", hbs.engine);//define motor de plantilla
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -20,7 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/mascotas', mascotasRouter);
+app.use('/medicos', medicosRouter);
+app.use('/citas', citasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
