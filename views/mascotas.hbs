@@ -1,26 +1,43 @@
 <h1>CENTRO MEDICO VETERINARIO BACKEND</h1>
 <h2>LISTADO DE MASCOTAS</h2>
 <table>
-<thead>
-    <tr>
-        <th>Nombre de la mascota</th>
-        <th>Nombre del dueño</th>
-        <th>Cédula del dueño</th>
-        <th>Edad de la mascota</th>
-        <th>Teléfono del dueño</th>
-    </tr>
-</thead>
-<tbody>
-    {{#each mascotas}}
-    <tr>
-        <td>{{nombre}}</td>
-        <td>{{nombre_duenio}}</td>
-        <td>{{cedula_duenio}}</td>
-        <td>{{edad}}</td>
-        <td>{{telefono_duenio}}</td>
-    </tr>
-    {{/each}}
-</tbody>
+    <thead>
+        <tr>
+            <th>Nombre de la mascota</th>
+            <th>Nombre del dueño</th>
+            <th>Cédula del dueño</th>
+            <th>Edad de la mascota</th>
+            <th>Teléfono del dueño</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each mascotas}}
+        <tr>
+            <form action="/actualizar/{{cedula_duenio}}" method="post">
+                <td><input value="{{nombre}}" disabled></td>
+                <td><input value="{{nombre_duenio}}" disabled></td>
+                <td><input id="prueba" value="{{cedula_duenio}}" disabled></td>
+                <td><input value="{{edad}}" disabled></td>
+                <td><input value="{{telefono_duenio}}" disabled></td>
+                <td><a class="eliminar" href="mascotas/eliminar/{{cedula_duenio}}">X</a></td>
+                <td><a class="actualizar" id="actualizar">Actualizar</a></td>
+                {{#if disabled}}
+                <td><input type="submit" value="enviar"></td>
+                {{/if}}
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
 </table>
 <a class="volver" href="/">Volver</a>
 <a href="mascotas/agregar-mascota">Agregar mascota</a>
+<script>
+    const button = document.querySelector("#actualizar");
+    button.addEventListener("click", () => {
+        let campos = document.querySelectorAll('input:#prueba')
+        campos.forEach(campo => {
+            campo.removeAtribute("disabled")
+        });
+    });
+</script>

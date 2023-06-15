@@ -1,45 +1,35 @@
 var express = require('express');
 var router = express.Router();
-
-// Inicio conexion a la base de datos
-
-// Configuración de la base de datos
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1234',
-  database: 'veterinaria'
-});
-
-// Conexión a la base de datos
-connection.connect(function(err) {
-  if (err) {
-    console.error('Error al conectar a la base de datos: ' + err);
-    return;
-  }
-  console.log('Conexión exitosa a la base de datos');
-});
-
-// Fin conexion a la base de datos
+const { connection } = require('../database/conexion.js')
 
 /* GET mascotas*/
-router.get('/', function(req, res, next) {
-  connection.query('SELECT * FROM mascotas', function(error, results, fields) {
+router.get('/', function (req, res) {
+  connection.query('SELECT * FROM mascotas', function (error, results) {
     if (error) {
       console.log("Error en la consulta", error)
       res.status(500).send("Error en la consulta");
-    }else{
-    res.render('mascotas', { mascotas: results });
+    } else {
+      res.render('mascotas', {mascotas: results});
     }
   });
 });
 
-router.get('/agregar-mascota', (req, res) =>{
-  res.sendFile('registro-mascotas.html', {root: 'public'});
+router.get('/activar', function (req, res) {
+  connection.query('SELECT * FROM mascotas', function (error, results) {
+    if (error) {
+      console.log("Error en la consulta", error)
+      res.status(500).send("Error en la consulta");
+    } else {
+      res.render('mascotas', { mascotas: results});
+    }
+  });
+});
+
+router.get('/agregar-mascota', (req, res) => {
+  res.sendFile('registro-mascotas.html', { root: 'public' });
 })
 
-router.post('/agregar', (req, res) =>{
+router.post('/agregar', (req, res) => {
   const cedula = req.body.cedula;
   const nombre = req.body.mascota;
   const nombre_duenio = req.body.duenio;
@@ -49,10 +39,48 @@ router.post('/agregar', (req, res) =>{
     if (error) {
       console.log("Ocurrio un error en la ejecución", error)
       res.status(500).send("Error en la consulta");
-    }else{
+    } else {
       res.redirect('/mascotas');
     }
   });
 })
+
+router.get('/eliminar/:cedula', (req, res) => {
+  const cedula = req.params.cedula;
+  connection.query(`DELETE FROM cita_medica WHERE id_mascota=${cedula}`, (error, result) => {
+    if (error) {
+      console.log("Ocurrio un error en la ejecución", error)
+      res.status(500).send("Error en la consulta");
+    } else {
+      connection.query(`DELETE FROM mascotas WHERE cedula_duenio=${cedula}`, (error, result) => {
+        if (error) {
+          console.log("Ocurrio un error en la ejecución", error)
+          res.status(500).send("Error en la consulta");
+        } else {
+          res.redirect('/mascotas');
+        }
+      });
+    }
+  });
+})
+
+
+
+router.post('/actualizar/:cedula', (req, res) => {
+  const cedula = req.params.cedula;
+  const nombre = req.body.mascota;
+  const nombre_duenio = req.body.duenio;
+  const edad = req.body.edad;
+  const telefono = req.body.telefono;
+  connection.query(`UPDATE mascotas SET nombre=${nombre}, nombre_duenio=${nombre_duenio}, edad=${edad}, telefono_duenio=${telefono} WHERE cedula_duenio=${cedula}`, (error, result) => {
+    if (error) {
+      console.log("Ocurrio un error en la ejecución", error)
+      res.status(500).send("Error en la consulta");
+    } else {
+      res.redirect('/mascotas');
+    }
+  });
+})
+
 
 module.exports = router;

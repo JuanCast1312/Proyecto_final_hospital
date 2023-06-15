@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const moment = require('moment');
-const { create } = require("express-handlebars");//importacion de handelbars
+const exhbs = require("express-handlebars");//importacion de handelbars
 
 var indexRouter = require('./routes/index');
 var mascotasRouter = require('./routes/mascotas');
@@ -13,16 +13,22 @@ var citasRouter = require('./routes/citas');
 
 var app = express();
 
-const hbs = create({//recibe las configuraciones de express
+const hbs = exhbs.create({//recibe las configuraciones de express
   extname: ".hbs",//facilita el uso de la extension, dandole notacion .hbs
   partialsDir: ["views/componentes"],//componetes
-  // Formateando la fecha de la base de datos
-  helpers: {
-    formatearFecha: function(date) {
-      return moment(date).format('YYYY-MM-DD'); // Formato de fecha deseado
-    }
-  }
 });
+
+hbs.handlebars.registerHelper('formatearFecha', function (date) {
+  return moment(date).format('YYYY-MM-DD'); // Formato de fecha deseado
+})
+
+hbs.handlebars.registerHelper('deshabilitar', function (opcion) {
+  if (opcion) {
+    return 'disabled' // Formato de fecha deseado
+  } else {
+    return ;
+  }
+})
 
 // view engine setup
 app.engine(".hbs", hbs.engine);//define motor de plantilla
@@ -41,12 +47,12 @@ app.use('/medicos', medicosRouter);
 app.use('/citas', citasRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
