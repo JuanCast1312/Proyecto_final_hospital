@@ -23,8 +23,8 @@
                 <td><input id="telefono" name="telefono" value="{{telefono_duenio}}" {{#ifCond @key '!='../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
                 <td>
                 {{#if ../estado}}
-                    <a href="mascotas/eliminar/{{cedula_duenio}}">Eliminar</a><br><br>
-                    <a href="mascotas/enviar/{{@key}}">Actualizar</a>
+                    <a class="eliminar" href="mascotas/eliminar/{{cedula_duenio}}"><img src="/imagenes/eliminar.png"></a>
+                    <a class="editar" href="mascotas/enviar/{{@key}}"><img src="/imagenes/editar.png"></a>
                 {{else}}
                     {{#ifCond @key '==' ../claveSeleccionada}}
                     <input type="submit" value="Enviar">
@@ -37,5 +37,7 @@
         {{/each}}
     </tbody>
 </table>
+<div class="opciones-tabla">
 <a class="volver" href="/">Volver</a>
 <a href="mascotas/agregar-mascota">Agregar mascota</a>
+</div>

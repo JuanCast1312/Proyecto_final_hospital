@@ -7,6 +7,7 @@ body {
 
 h1 {
   color: #333;
+  text-align: center;
 }
 
 h2 {
@@ -38,6 +39,14 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+input {
+  border: 0;
+}
+
+img{
+  width: 15px;
+}
+
 a, input[type="submit"] {
   color: #fff;
   text-decoration: none;
@@ -52,14 +61,33 @@ a:hover, input[type="submit"]:hover {
   background-color: #45a049;
 }
 
-.volver{
+.volver, .editar{
   background-color: #4cacaf;
 }
 
-.volver:hover {
+.eliminar {
+  background-color: #ff0000;
+}
+
+.volver,.editar:hover {
   background-color: #429396;
+}
+
+.eliminar:hover {
+  background-color: #9a0000;
 }
 
 button {
   margin-top: 10px;
+}
+
+.opciones-tabla{
+  display: flex;
+  justify-content: center;
+}
+
+.opciones-tabla a{
+  width: 150px;
+    text-align: center;
+    margin: 10px;
 }
