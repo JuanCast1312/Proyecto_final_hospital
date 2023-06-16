@@ -14,23 +14,24 @@
     <tbody>
         {{#each mascotas}}
         <tr>
-            <form action="/actualizar/{{cedula_duenio}}" method="post">
-                <td><input value="{{nombre}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
-                <td><input value="{{nombre_duenio}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}>
+            <form action="/mascotas/actualizar/{{cedula_duenio}}" method="post">
+                <td><input id="mascota" name="mascota" value="{{nombre}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
+                <td><input id="duenio" name="duenio" value="{{nombre_duenio}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}>
                 </td>
                 <td><input id="prueba" value="{{cedula_duenio}}" disabled></td>
-                <td><input value="{{edad}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
-                <td><input value="{{telefono_duenio}}" {{#ifCond @key '!='
-                        ../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
-                <td><a href="mascotas/eliminar/{{cedula_duenio}}">Eliminar</a><br><br>
+                <td><input id="edad" name="edad" value="{{edad}}" {{#ifCond @key '!=' ../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
+                <td><input id="telefono" name="telefono" value="{{telefono_duenio}}" {{#ifCond @key '!='../claveSeleccionada}}{{../opcion}}{{/ifCond}}></td>
+                <td>
                 {{#if ../estado}}
+                    <a href="mascotas/eliminar/{{cedula_duenio}}">Eliminar</a><br><br>
                     <a href="mascotas/enviar/{{@key}}">Actualizar</a>
                 {{else}}
                     {{#ifCond @key '==' ../claveSeleccionada}}
                     <input type="submit" value="Enviar">
-                    </td>
+                    
                     {{/ifCond}}
                 {{/if}}
+                </td>
             </form>
         </tr>
         {{/each}}

@@ -82,7 +82,7 @@ router.post('/actualizar/:cedula', (req, res) => {
   const nombre_duenio = req.body.duenio;
   const edad = req.body.edad;
   const telefono = req.body.telefono;
-  connection.query(`UPDATE mascotas SET nombre=${nombre}, nombre_duenio=${nombre_duenio}, edad=${edad}, telefono_duenio=${telefono} WHERE cedula_duenio=${cedula}`, (error, result) => {
+  connection.query(`UPDATE mascotas SET nombre='${nombre}', nombre_duenio='${nombre_duenio}', edad=${edad}, telefono_duenio=${telefono} WHERE cedula_duenio=${cedula}`, (error, result) => {
     if (error) {
       console.log("Ocurrio un error en la ejecución", error)
       res.status(500).send("Error en la consulta");
