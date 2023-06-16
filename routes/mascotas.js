@@ -9,7 +9,19 @@ router.get('/', function (req, res) {
       console.log("Error en la consulta", error)
       res.status(500).send("Error en la consulta");
     } else {
-      res.render('mascotas', {mascotas: results});
+      res.render('mascotas', {mascotas: results, opcion: 'disabled', estado: true});
+    }
+  });
+});
+
+router.get('/enviar/:clave', function (req, res) {
+  const clave = req.params.clave;
+  connection.query('SELECT * FROM mascotas', function (error, results) {
+    if (error) {
+      console.log("Error en la consulta", error)
+      res.status(500).send("Error en la consulta");
+    } else {
+      res.render('mascotas', {mascotas: results, claveSeleccionada: clave, opcion: 'disabled'});
     }
   });
 });
@@ -63,8 +75,6 @@ router.get('/eliminar/:cedula', (req, res) => {
     }
   });
 })
-
-
 
 router.post('/actualizar/:cedula', (req, res) => {
   const cedula = req.params.cedula;

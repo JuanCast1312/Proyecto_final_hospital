@@ -22,13 +22,28 @@ hbs.handlebars.registerHelper('formatearFecha', function (date) {
   return moment(date).format('YYYY-MM-DD'); // Formato de fecha deseado
 })
 
-hbs.handlebars.registerHelper('deshabilitar', function (opcion) {
-  if (opcion) {
-    return 'disabled' // Formato de fecha deseado
-  } else {
-    return ;
+hbs.handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+  switch (operator) {
+    case '==':
+      return (v1 == v2) ? options.fn(this) : options.inverse(this);
+    case '===':
+      return (v1 === v2) ? options.fn(this) : options.inverse(this);
+    case '!=':
+      return (v1 != v2) ? options.fn(this) : options.inverse(this);
+    case '!==':
+      return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+    case '<':
+      return (v1 < v2) ? options.fn(this) : options.inverse(this);
+    case '<=':
+      return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+    case '>':
+      return (v1 > v2) ? options.fn(this) : options.inverse(this);
+    case '>=':
+      return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+    default:
+      return options.inverse(this);
   }
-})
+});
 
 // view engine setup
 app.engine(".hbs", hbs.engine);//define motor de plantilla
