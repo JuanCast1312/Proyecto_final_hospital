@@ -19,7 +19,7 @@ router.get('/agregar-cita', (req, res) =>{
 })
 
 router.post('/agregar', (req, res) =>{
-  const cedulaDuenio = req.body.cedula;
+  const cedulaPaciente = req.body.cedula;
   const fecha = req.body.fecha;
   const especialidad = req.body.especialidad;
 
@@ -29,7 +29,7 @@ router.post('/agregar', (req, res) =>{
       res.status(500).send("Error en la consulta");
     }
       const cedulaMedico = results[0].cedula;
-      connection.query(`INSERT INTO cita_medica (id_mascota, id_medico, fecha) VALUES (${cedulaDuenio}, ${cedulaMedico}, '${fecha}')`, (error, result) => {
+      connection.query(`INSERT INTO cita_medica (cedula_paciente, cedula_medico, fecha) VALUES (${cedulaPaciente}, ${cedulaMedico}, '${fecha}')`, (error, result) => {
         if (error) {
           console.log("Ocurrio un error en la ejecución", error)
           res.status(500).send("Error en la consulta");

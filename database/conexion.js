@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'veterinaria'
+  database: 'hospital'
 });
 
 // Conexión a la base de datos

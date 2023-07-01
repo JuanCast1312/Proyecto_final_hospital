@@ -1,5 +1,5 @@
-<h1>CENTRO MEDICO VETERINARIO BACKEND</h1>
-<h2>LISTADO DE MEDICOS VETERINARIOS</h2>
+<h1>CENTRO HOSPITALARIO HAKkEND</h1>
+<h2>LISTADO DE CITAS PROGRAMADAS</h2>
 <table>
 <thead>
     <tr>
@@ -11,8 +11,8 @@
 <tbody>
     {{#each citas}}
     <tr>
-        <td>{{id_mascota}}</td>
-        <td>{{id_medico}}</td>
+        <td>{{cedula_paciente}}</td>
+        <td>{{cedula_medico}}</td>
         <td>{{formatearFecha fecha}}</td>
     </tr>
     {{/each}}

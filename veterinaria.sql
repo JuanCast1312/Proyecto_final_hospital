@@ -1,6 +1,4 @@
-CREATE DATABASE veterinaria;
 
-USE veterinaria;
 
 CREATE TABLE `medicos` (
   `cedula` int PRIMARY KEY,
