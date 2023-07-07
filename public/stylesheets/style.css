@@ -51,18 +51,18 @@ a, input[type="submit"] {
   color: #fff;
   text-decoration: none;
   padding: 8px 12px;
-  background-color: #4caf50;
+  background-color: #8c00a4;
   border: none;
   font-size: medium;
   border-radius: 4px;
 }
 
 a:hover, input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #09f1f5;
 }
 
 .volver, .editar{
-  background-color: #4cacaf;
+  background-color: #3c8f92;
 }
 
 .eliminar {
